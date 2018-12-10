@@ -7,6 +7,7 @@ RUN apt-get update && \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev openssh-server \
+                       arcanist php-xml \
 		       ruby-dev dpkg-dev lsb-release && \
     dpkg -i /*.deb && \
     rm /*.deb && \
