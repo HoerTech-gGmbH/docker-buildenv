@@ -15,8 +15,8 @@ SUBDIRS = \
 all: $(foreach dir,$(SUBDIRS),$(dir)/.directory)
 
 %/.directory: %/Dockerfile
-	echo "docker build -t hoertech/docker-buildenv:$(@D) $(@D)"
-	echo "docker push hoertech/docker-buildenv:$(@D)"
+	docker build -t hoertech/docker-buildenv:$(@D) $(@D)
+	docker push hoertech/docker-buildenv:$(@D)
 	@touch $@
 
 clean:
