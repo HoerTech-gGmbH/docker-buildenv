@@ -17,6 +17,3 @@ RUN apt-get update && \
     apt-get -y install octave-signal && \
     rm /*.deb && \
     mkdir -p /etc/mha
-  git config --global user.email jenkins@build.bot; done
-    git config --global user.name jenkins-built-bot
-

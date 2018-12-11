@@ -12,7 +12,7 @@ RUN apt-get update && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     mkdir -p /etc/mha && \
-    apt-get -y purge autoconf automake autotools-dev libtool
-    git config --global user.email jenkins@build.bot; done
-    git config --global user.name jenkins-built-bot
+    apt-get -y purge autoconf automake autotools-dev libtool && \
+    git config --global user.email jenkins@build.bot && \
+    git config --global user.name jenkins-build-bot
 
