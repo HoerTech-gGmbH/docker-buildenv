@@ -1,7 +1,5 @@
-SUBDIRS = \
+X86 = \
 	aptly \
-	mha_armv7-linux-gcc-5 \
-	mha_armv7-linux-gcc-7 \
 	mha_i686-linux-gcc-4.8 \
 	mha_i686-linux-gcc-5 \
 	mha_i686-linux-gcc-7 \
@@ -10,9 +8,17 @@ SUBDIRS = \
 	mha_x86_64-linux-gcc-7 \
 	mha_x86_64-linux-gcc-7-doc
 
+ARM = \
+	mha_armv7-linux-gcc-5 \
+	mha_armv7-linux-gcc-7
+
 .PHONY: clean
 
-all: $(foreach dir,$(SUBDIRS),$(dir)/.directory)
+x86: $(foreach dir,$(X86),$(dir)/.directory)
+
+arm: $(foreach dir,$(ARM),$(dir)/.directory)
+
+all: $(foreach dir,$(X86),$(dir)/.directory) $(foreach dir,$(ARM),$(dir)/.directory)
 
 %/.directory: %/Dockerfile
 	docker build -t hoertech/docker-buildenv:$(@D) $(@D)
