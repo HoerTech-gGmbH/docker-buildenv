@@ -15,4 +15,3 @@ RUN apt-get update && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
     git config --global user.email jenkins@build.bot && \
     git config --global user.name jenkins-build-bot
-
