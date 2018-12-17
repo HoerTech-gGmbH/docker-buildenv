@@ -6,12 +6,14 @@ RUN apt-get update && \
                        libjack-jackd2-dev octave-signal liblo-dev default-jdk \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
-                       libfreenect-dev swig libboost-system-dev openssh-server \
-		       dpkg-dev lsb-release && \
+                       libfreenect-dev swig libboost-system-dev netcat \
+                       dpkg-dev lsb-release arcanist php-xml && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     mkdir -p /etc/mha && \
-    apt-get -y purge autoconf automake autotools-dev libtool
-RUN mv /bin/uname /bin/uname.orig && \
-  echo '#!/bin/sh\n/usr/bin/linux32 /bin/uname.orig "$@"' > /bin/uname && \
-  chmod +x /bin/uname
+    apt-get -y purge autoconf automake autotools-dev libtool && \
+    mv /bin/uname /bin/uname.orig && \
+    echo '#!/bin/sh\n/usr/bin/linux32 /bin/uname.orig "$@"' > /bin/uname && \
+    chmod +x /bin/uname && \
+    git config --global user.email "noreply@mha.hoertech.de" && \
+    git config --global user.name "Jenkins"

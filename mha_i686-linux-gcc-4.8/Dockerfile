@@ -3,11 +3,11 @@ COPY *.deb /
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
-                       libjack-jackd2-dev liblo-dev dpkg-dev \
+                       libjack-jackd2-dev liblo-dev stow \
                        zip libx11-dev x11proto-video-dev libxv-dev \
-                       libcwiid-dev ruby libboost1.55-dev libgtkmm-3.0-dev \
+                       libcwiid-dev ruby-dev libboost1.55-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system1.55-dev netcat \
-                       software-properties-common wget stow && \
+                       dpkg-dev lsb-release software-properties-common wget && \
     add-apt-repository -y ppa:octave/stable && \
     apt-get update && \
     wget \
@@ -20,7 +20,9 @@ RUN apt-get update && \
     apt-get -y install octave-signal && \
     dpkg -i /*.deb && \
     rm /*.deb && \
-    mkdir -p /etc/mha
-RUN mv /bin/uname /bin/uname.orig && \
-  echo '#!/bin/sh\n/usr/bin/linux32 /bin/uname.orig "$@"' > /bin/uname && \
-  chmod +x /bin/uname
+    mkdir -p /etc/mha && \
+    mv /bin/uname /bin/uname.orig && \
+    echo '#!/bin/sh\n/usr/bin/linux32 /bin/uname.orig "$@"' > /bin/uname && \
+    chmod +x /bin/uname && \
+    git config --global user.email "noreply@mha.hoertech.de" && \
+    git config --global user.name "Jenkins"
