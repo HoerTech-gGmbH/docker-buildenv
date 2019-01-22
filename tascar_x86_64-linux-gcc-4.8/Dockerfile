@@ -11,7 +11,10 @@ RUN apt-get update && \
 		       libfftw3-dev libfftw3-single3 libfftw3-double3 \
 		       libcurl4-openssl-dev libwebkit2gtk-3.0-dev \
 		       libgtksourceviewmm-3.0-dev imagemagick && \
-    dpkg -i /*.deb && \
+    apt-get update && \
+    wget \
+      https://cdn.azul.com/zulu/bin/zulu8.31.0.1-jdk8.0.181-linux_amd64.deb && \
+    dpkg -i zulu8.31.0.1-jdk8.0.181-linux_amd64.deb /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins"
