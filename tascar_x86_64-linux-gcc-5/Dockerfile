@@ -7,7 +7,12 @@ RUN apt-get update && \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat \
-                       dpkg-dev lsb-release arcanist php-xml && \
+                       dpkg-dev lsb-release arcanist php-xml libxml++2.6-dev \
+		       liblo-dev libltc-dev libasound2-dev libjack-jackd2-dev \
+		       libgtkmm-3.0-dev libcairomm-1.0-dev libsndfile1-dev \
+		       libfftw3-dev libfftw3-single3 libfftw3-double3 \
+		       libcurl4-openssl-dev libwebkit2gtk-4.0 \
+		       libgtksourceviewmm-3.0-dev imagemagick && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     mkdir -p /etc/mha && \

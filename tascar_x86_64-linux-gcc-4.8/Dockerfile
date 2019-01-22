@@ -7,7 +7,12 @@ RUN apt-get update && \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby-dev libboost1.55-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system1.55-dev netcat \
-                       dpkg-dev lsb-release software-properties-common wget && \
+                       dpkg-dev lsb-release software-properties-common wget libxml++2.6-dev \
+		       liblo-dev libltc-dev libasound2-dev libjack-jackd2-dev \
+		       libgtkmm-3.0-dev libcairomm-1.0-dev libsndfile1-dev \
+		       libfftw3-dev libfftw3-single3 libfftw3-double3 \
+		       libcurl4-openssl-dev libwebkit2gtk-4.0 \
+		       libgtksourceviewmm-3.0-dev imagemagick && \
     add-apt-repository -y ppa:octave/stable && \
     apt-get update && \
     wget \
