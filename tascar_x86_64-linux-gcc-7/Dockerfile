@@ -11,7 +11,7 @@ RUN apt-get update && \
                        libfftw3-dev libfftw3-single3 libfftw3-double3 \
                        libcurl4-openssl-dev libwebkit2gtk-4.0-dev \
                        libgtksourceviewmm-3.0-dev imagemagick libmatio-dev \
-                       texlive-latex-recommended && \
+                       texlive-latex-recommended vim-common && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
