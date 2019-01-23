@@ -12,7 +12,8 @@ RUN apt-get update && \
                        libcurl4-openssl-dev libwebkit2gtk-4.0-dev \
                        libgtksourceviewmm-3.0-dev imagemagick libmatio-dev \
                        texlive-latex-recommended vim-common \
-                       texlive-latex-extra doxygen && \
+                       texlive-latex-extra doxygen \
+                       texlive-font-utils graphviz texlive-fonts-recommended && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \

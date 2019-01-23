@@ -12,7 +12,8 @@ RUN apt-get update && \
                        libcurl4-openssl-dev libwebkit2gtk-3.0-dev \
                        libgtksourceviewmm-3.0-dev imagemagick libmatio-dev \
                        texlive-latex-recommended vim-common \
-                       texlive-latex-extra doxygen && \
+                       texlive-latex-extra doxygen \
+                       texlive-font-utils graphviz texlive-fonts-recommended && \
     apt-get update && \
     wget \
       https://cdn.azul.com/zulu/bin/zulu8.31.0.1-jdk8.0.181-linux_amd64.deb && \
