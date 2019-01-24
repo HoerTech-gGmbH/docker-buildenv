@@ -14,7 +14,7 @@ RUN apt-get update && \
                        texlive-latex-recommended vim-common \
                        texlive-latex-extra doxygen \
                        texlive-font-utils graphviz texlive-fonts-recommended \
-                       libopencv-calib3d-dev && \
+                       libopencv-calib3d-dev libopencv-objdetect-dev && \
     apt-get update && \
     wget \
       https://cdn.azul.com/zulu/bin/zulu8.31.0.1-jdk8.0.181-linux_amd64.deb && \
