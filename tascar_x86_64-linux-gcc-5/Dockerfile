@@ -13,7 +13,8 @@ RUN apt-get update && \
                        libgtksourceviewmm-3.0-dev imagemagick libmatio-dev \
                        texlive-latex-recommended vim-common \
                        texlive-latex-extra doxygen \
-                       texlive-font-utils graphviz texlive-fonts-recommended && \
+                       texlive-font-utils graphviz texlive-fonts-recommended \
+                       libopencv-calib3d-dev && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
