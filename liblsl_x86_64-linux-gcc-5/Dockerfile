@@ -6,7 +6,7 @@ RUN apt-get update && \
                        ruby-dev default-jre \
                        dpkg-dev lsb-release \
                        software-properties-common wget \
-		       rsync && \
+		       rsync cmake && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
