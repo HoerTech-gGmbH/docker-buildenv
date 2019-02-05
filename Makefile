@@ -25,5 +25,9 @@ all: $(foreach dir,$(X86),$(dir)/.directory) $(foreach dir,$(ARM),$(dir)/.direct
 	docker push hoertech/docker-buildenv:$(@D)
 	@touch $@
 
+%/.build: %/Dockerfile
+	docker build -t hoertech/docker-buildenv:$(@D) $(@D)
+	@touch $@
+
 clean:
 	@rm -f */.directory
