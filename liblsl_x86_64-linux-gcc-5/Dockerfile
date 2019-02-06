@@ -6,8 +6,10 @@ RUN apt-get update && \
                        ruby-dev default-jre \
                        dpkg-dev lsb-release \
                        software-properties-common wget \
-		       rsync cmake && \
+		       rsync && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins"
+RUN wget http://www.cmake.org/files/v3.10/cmake-3.10.1.tar.gz
+RUN tar -xzf cmake-3.10.1.tar.gz && cd cmake-3.10.1 && ./configure && make && make install
