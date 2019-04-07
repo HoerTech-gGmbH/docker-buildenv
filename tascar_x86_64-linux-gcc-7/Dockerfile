@@ -6,8 +6,8 @@ RUN apt-get update && \
                        ruby-dev jackd2 portaudio19-dev default-jre \
                        libjack-jackd2-dev dpkg-dev lsb-release \
                        software-properties-common wget libxml++2.6-dev \
-                       liblo-dev libltc-dev libasound2-dev libjack-jackd2-dev \
-                       libgtkmm-3.0-dev libcairomm-1.0-dev libsndfile1-dev \
+                       liblo-dev libltc-dev libasound2-dev \
+                       libgtkmm-3.0-dev libcairomm-1.0-dev \
                        libfftw3-dev libfftw3-single3 libfftw3-double3 \
                        libcurl4-openssl-dev libwebkit2gtk-4.0-dev \
                        libgtksourceviewmm-3.0-dev imagemagick libmatio-dev \
