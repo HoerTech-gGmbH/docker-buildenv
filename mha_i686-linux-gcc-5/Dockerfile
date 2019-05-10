@@ -16,4 +16,7 @@ RUN apt-get update && \
     echo '#!/bin/sh\n/usr/bin/linux32 /bin/uname.orig "$@"' > /bin/uname && \
     chmod +x /bin/uname && \
     git config --global user.email "noreply@mha.hoertech.de" && \
-    git config --global user.name "Jenkins"
+    git config --global user.name "Jenkins" && \
+    useradd -ms /bin/bash --uid=19453 u
+USER u
+
