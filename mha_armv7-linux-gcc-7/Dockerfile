@@ -15,5 +15,5 @@ RUN apt-get update && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins" && \
     useradd -ms /bin/bash --uid=19453 u
+RUN cd /usr/lib && ln -s liblsl*.so liblsl.so
 USER u
-
