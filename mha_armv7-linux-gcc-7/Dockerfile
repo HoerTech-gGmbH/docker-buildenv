@@ -6,7 +6,7 @@ RUN apt-get update && \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat \
-                       dpkg-dev lsb-release arcanist php-xml ccache gnupg1 && \
+                       dpkg-dev lsb-release arcanist php-xml ccache gnupg1 cmake && \
     apt-key adv --keyserver keyserver.ubuntu.com \
                 --recv-keys B7D6CDF547DA4ABD && \
     echo 'deb http://apt.hoertech.de bionic universe' \

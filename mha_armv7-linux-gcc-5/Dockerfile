@@ -10,7 +10,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
                        zip libx11-dev x11proto-video-dev libxv-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat \
-                       dpkg-dev lsb-release arcanist php-xml ccache \
+                       dpkg-dev lsb-release arcanist php-xml ccache cmake \
                        mhamakedeb && \
     mkdir -p /etc/mha && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
