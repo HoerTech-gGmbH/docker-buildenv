@@ -14,7 +14,7 @@ RUN apt-get update && \
                        texlive-latex-recommended vim-common \
                        texlive-latex-extra doxygen \
                        texlive-font-utils graphviz texlive-fonts-recommended \
-                       libopencv-dev rsync libboost-all-dev && \
+                       libopencv-dev rsync libboost-all-dev libeigen3-dev && \
     dpkg -i /*.deb && \
     rm /*.deb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
