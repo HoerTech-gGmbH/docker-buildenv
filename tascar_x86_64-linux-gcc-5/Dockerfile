@@ -1,6 +1,9 @@
 FROM ubuntu:16.04
-COPY *.deb /
-RUN apt-get update && \
+RUN apt-key adv --keyserver keyserver.ubuntu.com \
+                --recv-keys B7D6CDF547DA4ABD && \
+    echo 'deb http://apt.hoertech.de bionic universe' \
+          >>/etc/apt/sources.list && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make build-essential libsndfile1-dev \
                        ruby-dev jackd2 portaudio19-dev default-jre \
@@ -14,8 +17,7 @@ RUN apt-get update && \
                        texlive-latex-recommended vim-common \
                        texlive-latex-extra doxygen \
                        texlive-font-utils graphviz texlive-fonts-recommended \
-                       libopencv-dev rsync libboost-all-dev libeigen3-dev && \
-    dpkg -i /*.deb && \
-    rm /*.deb && \
+                       libopencv-dev rsync libboost-all-dev libeigen3-dev \
+                       lsl-liblsl libopenmha-dev openmha && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins"
