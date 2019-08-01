@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 RUN apt-key adv --keyserver keyserver.ubuntu.com \
                 --recv-keys B7D6CDF547DA4ABD && \
-    echo 'deb http://apt.hoertech.de bionic universe' \
+    echo 'deb http://apt.hoertech.de xenial universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
