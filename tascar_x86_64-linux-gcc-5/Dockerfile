@@ -18,6 +18,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
                        texlive-latex-extra doxygen \
                        texlive-font-utils graphviz texlive-fonts-recommended \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
-                       lsl-liblsl libopenmha-dev openmha && \
+                       lsl-liblsl libopenmha-dev openmha libgsl-dev && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins"
