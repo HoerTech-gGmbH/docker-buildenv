@@ -4,7 +4,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
     echo 'deb http://apt.hoertech.de xenial universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get -y libffts && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y libffts && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
                        libjack-jackd2-dev octave-signal liblo-dev default-jre-headless \
