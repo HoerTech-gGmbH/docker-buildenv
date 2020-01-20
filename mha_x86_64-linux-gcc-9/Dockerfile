@@ -21,5 +21,16 @@ RUN echo 'deb [arch=amd64] http://apt.hoertech.de focal universe' \
     apt-get -y purge autoconf automake autotools-dev libtool && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins" && \
+    true
+# package octave-signal is not yet in ubuntu 20.04 but in debian testing
+RUN echo 'deb http://ftp.de.debian.org/debian/ testing main non-free contrib' >/etc/apt/sources.list.d/debian.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com \
+                --recv-keys 04EE7237B7D453EC && \
+    apt-key adv --keyserver keyserver.ubuntu.com \
+                --recv-keys 648ACFD622F3D138 && \
+    apt-get update && \
+    apt-get -y install octave-signal && \
+    rm -f /etc/apt/sources.list.d/debian.list && \
+    apt-get update && \
     useradd -ms /bin/bash --uid=19453 u
 USER u
