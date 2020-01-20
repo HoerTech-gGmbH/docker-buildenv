@@ -10,7 +10,7 @@ RUN apt-get update && \
     apt-key adv --keyserver keyserver.ubuntu.com \
                 --recv-keys B7D6CDF547DA4ABD && \
     true
-RUN echo 'deb [arch=amd64] http://dev.hoertech.de focal universe' \
+RUN echo 'deb [arch=amd64] http://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
     echo 'deb [arch=amd64] http://aptdev.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
