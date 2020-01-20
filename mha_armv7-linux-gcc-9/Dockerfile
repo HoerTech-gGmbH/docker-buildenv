@@ -6,9 +6,10 @@ RUN apt-get update && \
                 --recv-keys B7D6CDF547DA4ABD && \
     echo 'deb http://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
-    apt-get update && \
+    true
+RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install lsl-liblsl mhamakedeb libffts && \
+    apt-get -y install lsl-liblsl mhamakedeb && \
     true
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
