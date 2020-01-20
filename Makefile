@@ -2,7 +2,6 @@
 # Makefile, for all images except for ARM.
 
 ARM = \
-	mha_armv7-linux-gcc-5 \
 	mha_armv7-linux-gcc-7 \
 	liblsl_armv7-linux-gcc-9 \
 	liblsl_armv7-linux-gcc-7
