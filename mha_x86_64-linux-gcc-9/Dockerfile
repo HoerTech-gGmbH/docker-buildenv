@@ -25,7 +25,7 @@ RUN echo 'deb [arch=amd64] http://apt.hoertech.de focal universe' \
 # octave + java11 gives errors, java8 works with symlinks to find libjvm.so
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install --no-install-recommends octave-signal && \
+    apt-get -y install --no-install-recommends octave-signal gettext-base && \
     ln -s java-8-openjdk-amd64/ /usr/lib/jvm/default-java && \
     ln -s ../jre/lib/amd64/server/ /usr/lib/jvm/java-8-openjdk-amd64/lib/server
 USER u
