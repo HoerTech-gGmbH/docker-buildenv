@@ -13,7 +13,7 @@ if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
 || ./has_directory_changed_since ./docker $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
 then \
 docker build --no-cache --pull -t hoertech/docker-buildenv:docker_armv7 docker \
-&& docker push                    hoertech/docker-buildenv:docker_armv7 \
+&& docker push                    hoertech/docker-buildenv:docker_armv7 ; \
 fi"""
                   sh """
 if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
@@ -22,7 +22,7 @@ if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
 then \
 docker build --no-cache --pull \
              -t  hoertech/docker-buildenv:mha_armv7-linux-gcc-7 docker \
-&& docker push   hoertech/docker-buildenv:mha_armv7-linux-gcc-7 \
+&& docker push   hoertech/docker-buildenv:mha_armv7-linux-gcc-7 ; \
 fi"""
 
                }
