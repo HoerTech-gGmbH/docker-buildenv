@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Shell script returns true if directory $1 has changed since git commit $2
+
+DIR="$1"
+GIT="$2"
+
+# If directory $1 does not exist now, then count it as changed
+if test ! -d "$DIR"
+then exit 0
+fi
+
+# If the reference git commit is empty, then say that there is a change
+if test -z "$GIT"
+then exit 0
+fi
+
+# Special test needed if the directory is the git root.
+if test "x$DIR" = "x."
+then
+    # Count number of changed files in git base directory:
+    basedirnumchangedfiles="$(git diff --name-only "$GIT" | grep -v / | wc -l)"
+
+    # true if any files in basedir have changed:
+    test "x$basedirnumchangedfiles" != "x0"
+
+    # exit script with result of last test
+    exit
+fi
+
+# Count number of changed files in directory $DIR:
+numchangedfiles=$(git diff --name-only "$GIT" -- "$DIR" | wc -l)
+
+# true if any files in directory $DIR have changed:
+test "x$numchangedfiles" != "x0"
+
+# exit script with result of last test
+exit
