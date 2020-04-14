@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Shell script returns true if any directory given on the command line has
+# changed since git commit $GIT_PREVIOUS_SUCCESSFUL_COMMIT
+
+# Loop over all parameters given to this shell skript
+for DIR in "$@"
+
+# Check if the given DIR has changed since last successful Jenkins build
+do if sh/has_directory_changed_since $DIR $GIT_PREVIOUS_SUCCESSFUL_COMMIT
+
+# If it has, return true
+then exit 0
+
+# terminate if clause and for loop
+fi
+done
+
+# No change in any of the given directories, return false
+exit 1

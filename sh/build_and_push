@@ -1,0 +1,12 @@
+#!/bin/bash -ex
+
+# Shell script builds docker image
+# hoertech/docker-buildenv:$1 in directory $1 and pushes it to docker hub.
+
+# Multiple parameters can be given, all will be built and pushed in a loop
+
+# Loop over all parameters given to this shell skript, build and push images
+for TAG in "$@"
+do docker build -t hoertech/docker-buildenv:$TAG $TAG
+   docker push     hoertech/docker-buildenv:$TAG
+done
