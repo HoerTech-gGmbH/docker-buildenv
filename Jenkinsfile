@@ -31,39 +31,64 @@ fi"""
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
-                  sh "env"
-                  sh "id && stat /var/run/docker.sock && ls -la /var/ && ls -la /var/run"
-                  sh "docker build --no-cache --pull -t hoertech/docker-buildenv:docker_x86_64 docker"
-                  sh "docker push hoertech/docker-buildenv:docker_x86_64"
-
-
-                  sh "docker build --no-cache --pull -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-5  mha_x86_64-linux-gcc-5"
-                  sh "docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-5"
+                  sh """
+if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./docker $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
+then \
+docker build --no-cache --pull
+             -t hoertech/docker-buildenv:docker_x86_64 docker \
+&& docker push  hoertech/docker-buildenv:docker_x86_64 ; \
+fi"""
+                  sh """
+if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./mha_x86_64-linux-gcc-5 \
+                                 $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
+then \
+docker build --no-cache --pull \
+    -t  hoertech/docker-buildenv:mha_x86_64-linux-gcc-5 mha_x86_64-linux-gcc-5 \
+&& docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-5 ; \
+fi"""
                }
             }
             stage("bionic") {
                agent {label "x86_64 && dockerbld"}
-                 steps {
-                    checkout scm
-                    sh "docker build --no-cache --pull -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-7  mha_x86_64-linux-gcc-7"
-                    sh "docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-7"
-
-                    sh "docker build --no-cache --pull -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-7-doc  mha_x86_64-linux-gcc-7-doc"
-                    sh "docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-7-doc"
-
-                 }
+               steps {
+                  checkout scm
+                  sh """
+if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./mha_x86_64-linux-gcc-7 \
+                                 $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./mha_x86_64-linux-gcc-7-doc \
+                                 $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
+then \
+docker build -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-7 \
+             --no-cache --pull           mha_x86_64-linux-gcc-7 \
+&& docker push  hoertech/docker-buildenv:mha_x86_64-linux-gcc-7 && \
+docker build -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-7-doc \
+             --no-cache --pull           mha_x86_64-linux-gcc-7-doc \
+&& docker push  hoertech/docker-buildenv:mha_x86_64-linux-gcc-7-doc ; \
+fi"""
+               }
             }
             stage("focal") {
                agent {label "x86_64 && dockerbld"}
-                 steps {
-                    checkout scm
-                    sh "docker build --no-cache --pull -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-9  mha_x86_64-linux-gcc-9"
-                    sh "docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-9"
-
-                    sh "docker build --no-cache --pull -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-9-doc  mha_x86_64-linux-gcc-9-doc"
-                    sh "docker push hoertech/docker-buildenv:mha_x86_64-linux-gcc-9-doc"
-
-                 }
+               steps {
+                  checkout scm
+                  sh """
+if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./mha_x86_64-linux-gcc-9 \
+                                 $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
+|| ./has_directory_changed_since ./mha_x86_64-linux-gcc-9-doc \
+                                 $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
+then \
+docker build -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-9 \
+             --no-cache --pull           mha_x86_64-linux-gcc-9 \
+&& docker push  hoertech/docker-buildenv:mha_x86_64-linux-gcc-9 && \
+docker build -t hoertech/docker-buildenv:mha_x86_64-linux-gcc-9-doc \
+             --no-cache --pull           mha_x86_64-linux-gcc-9-doc \
+&& docker push  hoertech/docker-buildenv:mha_x86_64-linux-gcc-9-doc ; \
+fi"""
+               }
             }
          }
       }
