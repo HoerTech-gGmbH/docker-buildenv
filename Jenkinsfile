@@ -1,6 +1,12 @@
 pipeline {
    agent {label "jenkinsmaster"}
    stages {
+      stage('env') {
+         steps {
+            sh "env"
+         }
+      }
+            
       stage('docker images') {
          parallel {
             stage('docker x86_64') {
