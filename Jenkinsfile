@@ -35,7 +35,7 @@ fi"""
 if ./has_directory_changed_since . $GIT_PREVIOUS_SUCCESSFUL_COMMIT \
 || ./has_directory_changed_since ./docker $GIT_PREVIOUS_SUCCESSFUL_COMMIT ; \
 then \
-docker build --no-cache --pull
+docker build --no-cache --pull \
              -t hoertech/docker-buildenv:docker_x86_64 docker \
 && docker push  hoertech/docker-buildenv:docker_x86_64 ; \
 fi"""
