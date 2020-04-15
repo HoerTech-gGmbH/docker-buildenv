@@ -1,9 +1,17 @@
 #!/bin/bash
 
 # Shell script returns true if any directory given on the command line has
-# changed since git commit $GIT_PREVIOUS_SUCCESSFUL_COMMIT
+# changed since git commit $GIT_PREVIOUS_SUCCESSFUL_COMMIT.
 
-# Loop over all parameters given to this shell skript
+# Environment variable $GIT_PREVIOUS_SUCCESSFUL_COMMIT is set by Jenkins and
+# contains the git commit SHA1 hash of the last successful Jenkins build
+# of this project. 
+
+# We use this to decide which docker images need to be rebuilt (when their
+# directory, the directory of a dependency, or the git base directory have
+# changed).
+
+# Loop over all parameters (directories) given to this shell skript
 for DIR in "$@"
 
 # Check if the given DIR has changed since last successful Jenkins build
