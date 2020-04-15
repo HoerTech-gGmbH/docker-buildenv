@@ -19,7 +19,7 @@ pipeline {
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f"
+                  sh "docker system prune -f || true"
                }
             }
             stage('arm xenial') {
@@ -32,7 +32,7 @@ pipeline {
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f"
+                  sh "docker system prune -f || true"
                }
             }
             stage('docker xenial') {
@@ -53,7 +53,7 @@ pipeline {
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f"
+                  sh "docker system prune -f || true"
                }
             }
             stage("bionic") {
@@ -65,7 +65,7 @@ pipeline {
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f"
+                  sh "docker system prune -f || true"
                }
             }
             stage("focal") {
@@ -77,7 +77,7 @@ pipeline {
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f"
+                  sh "docker system prune -f || true"
                }
             }
          }
