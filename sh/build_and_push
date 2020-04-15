@@ -7,6 +7,6 @@
 
 # Loop over all parameters given to this shell skript, build and push images
 for TAG in "$@"
-do docker build -t hoertech/docker-buildenv:$TAG $TAG
-   docker push     hoertech/docker-buildenv:$TAG
+do docker build --no-cache --pull -t hoertech/docker-buildenv:$TAG $TAG
+   docker push                       hoertech/docker-buildenv:$TAG
 done
