@@ -15,7 +15,7 @@ pipeline {
 
                   // """ starts a multi-line string, newlines are passed to sh
                   sh """if sh/changed . docker
-                        then sh/push_and_build docker_armv7
+                        then sh/build_and_push docker_armv7
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -28,7 +28,7 @@ pipeline {
                   checkout scm
 
                   sh """if sh/changed . mha_armv7-linux-gcc-7
-                        then sh/push_and_build mha_armv7-linux-gcc-7
+                        then sh/build_and_push mha_armv7-linux-gcc-7
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -46,10 +46,10 @@ pipeline {
                   sh "ln -s docker/ docker_x86_64"
                   
                   sh """if sh/changed . docker
-                        then sh/push_and_build docker_x86_64
+                        then sh/build_and_push docker_x86_64
                         fi"""
                   sh """if sh/changed . mha_x86_64-linux-gcc-5
-                        then sh/push_and_build mha_x86_64-linux-gcc-5
+                        then sh/build_and_push mha_x86_64-linux-gcc-5
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -61,7 +61,7 @@ pipeline {
                steps {
                   checkout scm
                   sh """if sh/changed . mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
-                        then sh/push_and_build mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
+                        then sh/build_and_push mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -73,7 +73,7 @@ pipeline {
                steps {
                   checkout scm
                   sh """if sh/changed . mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
-                        then sh/push_and_build mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
+                        then sh/build_and_push mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
