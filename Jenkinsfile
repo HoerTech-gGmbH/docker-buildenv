@@ -64,6 +64,10 @@ pipeline {
                         then sh/build_and_push mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
                         fi"""
 
+                  sh """if sh/changed . aptly
+                        then sh/build_and_push aptly
+                        fi"""
+
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
