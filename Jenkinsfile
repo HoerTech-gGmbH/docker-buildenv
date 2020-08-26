@@ -22,7 +22,7 @@ pipeline {
                   sh "docker system prune -f || true"
                }
             }
-            stage('arm xenial') {
+            stage('arm bionic') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
