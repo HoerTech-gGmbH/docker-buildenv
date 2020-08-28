@@ -6,7 +6,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make build-essential libsndfile1-dev \
-                       ruby-dev jackd2 portaudio19-dev default-jre \
+                       ruby-dev jackd2 portaudio19-dev default-jre-headless \
                        libjack-jackd2-dev dpkg-dev lsb-release \
                        software-properties-common wget libxml++2.6-dev \
                        liblo-dev libltc-dev libasound2-dev libjack-jackd2-dev \
