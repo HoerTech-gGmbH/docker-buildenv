@@ -3,7 +3,7 @@ pipeline {
    stages {
       stage('parallel builds') {
          parallel {
-            stage('arm docker') {
+            stage('arm docker mha') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
@@ -18,17 +18,21 @@ pipeline {
                         then sh/build_and_push docker_armv7
                         fi"""
 
+                  sh """if sh/changed . mha_armv7-linux-gcc-7
+                        then sh/build_and_push mha_armv7-linux-gcc-7
+                        fi"""
+
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
             }
-            stage('arm bionic') {
+            stage('arm tascar') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
 
-                  sh """if sh/changed . mha_armv7-linux-gcc-7
-                        then sh/build_and_push mha_armv7-linux-gcc-7
+                  sh """if sh/changed . tascar_armv7-linux-gcc-7
+                        then sh/build_and_push tascar_armv7-linux-gcc-7
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
