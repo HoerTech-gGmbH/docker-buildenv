@@ -17,7 +17,7 @@ RUN apt-get update && \
                        gnupg1 libgsl-dev libsamplerate0-dev && \
     apt-key adv --keyserver keyserver.ubuntu.com \
                 --recv-keys B7D6CDF547DA4ABD && \
-    echo 'deb http://aptdev.hoertech.de focal universe' \
+    echo 'deb http://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
