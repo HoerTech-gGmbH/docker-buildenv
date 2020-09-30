@@ -30,6 +30,7 @@ pipeline {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
+                  sh "git clean -fdx ."
 
                   sh """if sh/changed . tascar_armv7-linux-gcc-7
                         then sh/build_and_push tascar_armv7-linux-gcc-7
@@ -56,6 +57,10 @@ pipeline {
                         then sh/build_and_push mha_x86_64-linux-gcc-5
                         fi"""
 
+                  sh """if sh/changed . tascar_x86_64-linux-gcc-5
+                        then sh/build_and_push tascar_x86_64-linux-gcc-5
+                        fi"""
+
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
@@ -64,6 +69,8 @@ pipeline {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
+                  sh "git clean -fdx ."
+
                   sh """if sh/changed . mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
                         then sh/build_and_push mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
                         fi"""
@@ -80,6 +87,8 @@ pipeline {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
+                  sh "git clean -fdx ."
+                  
                   sh """if sh/changed . mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
                         then sh/build_and_push mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
                         fi"""

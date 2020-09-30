@@ -20,4 +20,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        lsl-liblsl libopenmha-dev openmha libgsl-dev libsamplerate0-dev && \
     git config --global user.email "noreply@mha.hoertech.de" && \
-    git config --global user.name "Jenkins"
+    git config --global user.name "Jenkins" && \
+    useradd -ms /bin/bash --uid=19453 u
+USER u
