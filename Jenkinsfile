@@ -75,6 +75,10 @@ pipeline {
                         then sh/build_and_push mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
                         fi"""
 
+                  sh """if sh/changed . tascar_x86_64-linux-gcc-7
+                        then sh/build_and_push tascar_x86_64-linux-gcc-7
+                        fi"""
+                  
                   sh """if sh/changed . aptly
                         then sh/build_and_push aptly
                         fi"""
@@ -95,6 +99,10 @@ pipeline {
 
                   sh """if sh/changed . kernel_cross-gcc-9
                         then sh/build_and_push kernel_cross-gcc-9
+                        fi"""
+
+                  sh """if sh/changed . tascar_x86_64-linux-gcc-9
+                        then sh/build_and_push tascar_x86_64-linux-gcc-9
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
