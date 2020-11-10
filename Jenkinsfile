@@ -3,14 +3,17 @@ pipeline {
    stages {
       stage('parallel builds') {
          parallel {
-            stage('arm docker mha') {
+
+            // update images docker_armv7 and mha_armv7-linux-gcc-7
+            stage('armv7 docker mha') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
 
-                  // Dockerfile in directory docker can be used for armv7 and
-                  // for x86_64 docker images. Here we use it for armv7.
+                  // Dockerfile in directory docker can be used to buils docker
+                  // images for armv7, aarch64, or x86_64.  Here we use it for
+                  // armv7.
                   sh "ln -s docker/ docker_armv7"
 
                   // """ starts a multi-line string, newlines are passed to sh
@@ -26,7 +29,9 @@ pipeline {
                   sh "docker system prune -f || true"
                }
             }
-            stage('arm tascar') {
+
+            // update image tascar_armv7-linux-gcc-7
+            stage('armv7 tascar') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
@@ -40,14 +45,17 @@ pipeline {
                   sh "docker system prune -f || true"
                }
             }
-            stage('docker xenial') {
+
+            // update the x86_64 docker builder and all images for xenial
+            stage('x86_64 docker xenial') {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
 
-                  // Dockerfile in directory docker can be used for armv7 and
-                  // for x86_64 docker images. Here we use it for x86_64.
+                  // Dockerfile in directory docker can be used to buils docker
+                  // images for armv7, aarch64, or x86_64.  Here we use it for
+                  // x86_64.
                   sh "ln -s docker/ docker_x86_64"
                   
                   sh """if sh/changed . docker
@@ -65,7 +73,9 @@ pipeline {
                   sh "docker system prune -f || true"
                }
             }
-            stage("bionic") {
+
+            // update all x86_64 images for bionic
+            stage("x86_64 bionic") {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
@@ -87,7 +97,9 @@ pipeline {
                   sh "docker system prune -f || true"
                }
             }
-            stage("focal") {
+
+            // update all x86_64 images for focal
+            stage("x86_64 focal") {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
