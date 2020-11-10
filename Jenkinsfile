@@ -11,7 +11,7 @@ pipeline {
                   checkout scm
                   sh "git clean -fdx ."
 
-                  // Dockerfile in directory docker can be used to buils docker
+                  // Dockerfile in directory docker can be used to build docker
                   // images for armv7, aarch64, or x86_64.  Here we use it for
                   // armv7.
                   sh "ln -s docker/ docker_armv7"
@@ -39,6 +39,28 @@ pipeline {
 
                   sh """if sh/changed . tascar_armv7-linux-gcc-7
                         then sh/build_and_push tascar_armv7-linux-gcc-7
+                        fi"""
+
+                  // We have just obsoleted docker images, save disk space
+                  sh "docker system prune -f || true"
+               }
+            }
+
+            // update image docker_aarch64
+            stage('aarch64 docker') {
+               agent {label "arch64 && dockerbld"}
+               steps {
+                  checkout scm
+                  sh "git clean -fdx ."
+
+                  // Dockerfile in directory docker can be used to build docker
+                  // images for armv7, aarch64, or x86_64.  Here we use it for
+                  // aarch64.
+                  sh "ln -s docker/ docker_aarch64"
+
+                  // """ starts a multi-line string, newlines are passed to sh
+                  sh """if sh/changed . docker
+                        then sh/build_and_push docker_aarch64
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
