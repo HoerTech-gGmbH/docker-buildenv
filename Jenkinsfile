@@ -48,7 +48,7 @@ pipeline {
 
             // update image docker_aarch64
             stage('aarch64 docker') {
-               agent {label "arch64 && dockerbld"}
+               agent {label "aarch64 && dockerbld"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
