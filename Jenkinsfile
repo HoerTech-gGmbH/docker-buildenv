@@ -58,9 +58,12 @@ pipeline {
                   // aarch64.
                   sh "ln -s docker/ docker_aarch64"
 
-                  // """ starts a multi-line string, newlines are passed to sh
                   sh """if sh/changed . docker
                         then sh/build_and_push docker_aarch64
+                        fi"""
+
+                  sh """if sh/changed . mha_aarch64-linux-gcc-7
+                        then sh/build_and_push mha_aarch64-linux-gcc-7
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
