@@ -15,7 +15,7 @@ RUN apt-get update && \
                        texlive-font-utils graphviz texlive-fonts-recommended \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        gnupg1 libgsl-dev libsamplerate0-dev libcpprest-dev \
-		       nlohmann-json-dev && \
+                       nlohmann-json-dev && \
     apt-key adv --keyserver keyserver.ubuntu.com \
                 --recv-keys B7D6CDF547DA4ABD && \
     echo 'deb http://apt.hoertech.de focal universe' \
