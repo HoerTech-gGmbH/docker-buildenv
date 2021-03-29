@@ -30,12 +30,16 @@ pipeline {
                }
             }
 
-            // update image tascar_armv7-linux-gcc-7
-            stage('armv7 tascar') {
+            // update images liblsl_armv7-linux-gcc-7 and tascar_armv7-linux-gcc-7
+            stage('armv7 liblsl tascar') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
+
+                  sh """if sh/changed . liblsl_armv7-linux-gcc-7
+                        then sh/build_and_push liblsl_armv7-linux-gcc-7
+                        fi"""
 
                   sh """if sh/changed . tascar_armv7-linux-gcc-7
                         then sh/build_and_push tascar_armv7-linux-gcc-7
@@ -46,8 +50,8 @@ pipeline {
                }
             }
 
-            // update image docker_aarch64
-            stage('aarch64 docker') {
+            // update image docker_aarch64, liblsl_aarch64-linux-gcc-7 and mha_aarch64-linux-gcc-7
+            stage('aarch64 docker liblsl mha') {
                agent {label "aarch64 && dockerbld"}
                steps {
                   checkout scm
@@ -60,6 +64,10 @@ pipeline {
 
                   sh """if sh/changed . docker
                         then sh/build_and_push docker_aarch64
+                        fi"""
+
+                  sh """if sh/changed . liblsl_aarch64-linux-gcc-7
+                        then sh/build_and_push mha_aarch64-linux-gcc-7
                         fi"""
 
                   sh """if sh/changed . mha_aarch64-linux-gcc-7
