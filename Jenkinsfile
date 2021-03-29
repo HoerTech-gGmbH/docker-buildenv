@@ -5,7 +5,7 @@ pipeline {
          parallel {
 
             // update images docker_armv7 and mha_armv7-linux-gcc-7
-            stage('armv7 docker mha') {
+            stage('armv7 docker liblsl') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
@@ -21,8 +21,8 @@ pipeline {
                         then sh/build_and_push docker_armv7
                         fi"""
 
-                  sh """if sh/changed . mha_armv7-linux-gcc-7
-                        then sh/build_and_push mha_armv7-linux-gcc-7
+                  sh """if sh/changed . liblsl_armv7-linux-gcc-7
+                        then sh/build_and_push liblsl_armv7-linux-gcc-7
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -31,14 +31,14 @@ pipeline {
             }
 
             // update images liblsl_armv7-linux-gcc-7 and tascar_armv7-linux-gcc-7
-            stage('armv7 liblsl tascar') {
+            stage('armv7 mha tascar') {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
 
-                  sh """if sh/changed . liblsl_armv7-linux-gcc-7
-                        then sh/build_and_push liblsl_armv7-linux-gcc-7
+                  sh """if sh/changed . mha_armv7-linux-gcc-7
+                        then sh/build_and_push mha_armv7-linux-gcc-7
                         fi"""
 
                   sh """if sh/changed . tascar_armv7-linux-gcc-7
