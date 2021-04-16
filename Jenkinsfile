@@ -107,6 +107,10 @@ pipeline {
                   checkout scm
                   sh "git clean -fdx ."
 
+                  sh """if sh/changed . octave_x86_64-linux-gcc-7
+                        then sh/build_and_push octave_x86_64-linux-gcc-7
+                        fi"""
+
                   sh """if sh/changed . mha_x86_64-linux-gcc-7
                         then sh/build_and_push mha_x86_64-linux-gcc-7
                         fi"""
@@ -131,6 +135,10 @@ pipeline {
                   checkout scm
                   sh "git clean -fdx ."
                   
+                  sh """if sh/changed . octave_x86_64-linux-gcc-9
+                        then sh/build_and_push octave_x86_64-linux-gcc-9
+                        fi"""
+
                   sh """if sh/changed . mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
                         then sh/build_and_push mha_x86_64-linux-gcc-9 mha_x86_64-linux-gcc-9-doc
                         fi"""
