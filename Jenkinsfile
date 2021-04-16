@@ -67,7 +67,7 @@ pipeline {
                         fi"""
 
                   sh """if sh/changed . liblsl_aarch64-linux-gcc-7
-                        then sh/build_and_push mha_aarch64-linux-gcc-7
+                        then sh/build_and_push liblsl_aarch64-linux-gcc-7
                         fi"""
 
                   sh """if sh/changed . mha_aarch64-linux-gcc-7
@@ -79,8 +79,8 @@ pipeline {
                }
             }
 
-            // update the x86_64 docker builder and all images for xenial
-            stage('x86_64 docker xenial') {
+            // update the x86_64 docker builder
+            stage('x86_64 docker') {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
@@ -93,13 +93,6 @@ pipeline {
                   
                   sh """if sh/changed . docker
                         then sh/build_and_push docker_x86_64
-                        fi"""
-                  sh """if sh/changed . mha_x86_64-linux-gcc-5
-                        then sh/build_and_push mha_x86_64-linux-gcc-5
-                        fi"""
-
-                  sh """if sh/changed . tascar_x86_64-linux-gcc-5
-                        then sh/build_and_push tascar_x86_64-linux-gcc-5
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
@@ -114,8 +107,8 @@ pipeline {
                   checkout scm
                   sh "git clean -fdx ."
 
-                  sh """if sh/changed . mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
-                        then sh/build_and_push mha_x86_64-linux-gcc-7 mha_x86_64-linux-gcc-7-doc
+                  sh """if sh/changed . mha_x86_64-linux-gcc-7
+                        then sh/build_and_push mha_x86_64-linux-gcc-7
                         fi"""
 
                   sh """if sh/changed . tascar_x86_64-linux-gcc-7
