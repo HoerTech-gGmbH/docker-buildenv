@@ -8,7 +8,7 @@ RUN apt-get update && \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install lsl-liblsl mhamakedeb libffts \
+    apt-get -y install liblsl mhamakedeb libffts \
                        git g++ make libsndfile1-dev jackd2 portaudio19-dev \
                        libjack-jackd2-dev octave-signal liblo-dev default-jre-headless \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \

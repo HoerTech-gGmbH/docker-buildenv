@@ -13,7 +13,7 @@ RUN apt-get update && \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install lsl-liblsl mhamakedeb && \
+    apt-get -y install liblsl mhamakedeb && \
     mkdir -p /etc/mha && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
     git config --global user.email "noreply@mha.hoertech.de" && \
