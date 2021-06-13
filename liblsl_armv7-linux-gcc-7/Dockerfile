@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get -y install build-essential wget libssl-dev && \
     wget https://github.com/Kitware/CMake/releases/download/v3.17.0/cmake-3.17.0.tar.gz && \
     tar xf cmake-3.17.0.tar.gz && \
-    cd cmake-3.17.0 && ./configure && make install && cd .. && \
+    cd cmake-3.17.0 && ./configure && make -j 4 install && cd .. && \
     rm -rf cmake-* && rm -rvf /usr/local/doc && rm -rvf /usr/local/man
 
 # Create build environment suitable for compiling liblsl
