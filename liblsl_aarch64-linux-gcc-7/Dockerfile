@@ -8,12 +8,10 @@ RUN apt-get update && \
     cd cmake-3.17.0 && ./configure && make install && cd .. && \
     rm -rf cmake-* && rm -rvf /usr/local/doc && rm -rvf /usr/local/man
 
+# Create build environment suitable for compiling liblsl
 FROM ubuntu:18.04
 COPY --from=buildcmake /usr/local /usr/local
 RUN test -e /usr/local/bin/cmake && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install git g++ make default-jre-headless \
-                       dpkg-dev lsb-release wget rsync ccache && \
-    git config --global user.email "noreply@mha.hoertech.de" && \
-    git config --global user.name "Jenkins"
+    apt-get -y install git g++ make dpkg-dev lsb-release
