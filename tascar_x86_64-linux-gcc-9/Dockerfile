@@ -23,7 +23,7 @@ RUN apt-get update && \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install lsl-liblsl libopenmha-dev openmha mhamakedeb && \
+    apt-get -y install liblsl libopenmha-dev openmha mhamakedeb && \
     git config --global user.email "noreply@mha.hoertech.de" && \
     git config --global user.name "Jenkins" && \
     useradd -ms /bin/bash --uid=19453 u
