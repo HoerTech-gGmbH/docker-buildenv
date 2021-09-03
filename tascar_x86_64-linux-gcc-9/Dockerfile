@@ -17,8 +17,7 @@ RUN apt-get update && \
                        gnupg1 libgsl-dev libsamplerate0-dev libcpprest-dev \
                        nlohmann-json3-dev libsoundio-dev libxerces-c-dev \
 		       cmake && \
-    apt-key adv --keyserver keyserver.ubuntu.com \
-                --recv-keys B7D6CDF547DA4ABD && \
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb http://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \

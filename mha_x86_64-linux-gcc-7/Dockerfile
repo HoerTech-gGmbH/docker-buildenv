@@ -5,10 +5,9 @@ RUN apt-get update && \
                        libjack-jackd2-dev octave-signal liblo-dev default-jdk \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
-                       libfreenect-dev swig libboost-system-dev netcat \
+                       libfreenect-dev swig libboost-system-dev netcat wget \
                        dpkg-dev lsb-release arcanist php-xml gnupg1 cmake && \
-    apt-key adv --keyserver keyserver.ubuntu.com \
-                --recv-keys B7D6CDF547DA4ABD && \
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb http://apt.hoertech.de bionic universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \

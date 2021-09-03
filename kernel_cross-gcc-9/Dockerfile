@@ -4,10 +4,9 @@
 FROM ubuntu:20.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
-    build-essential git ncurses-dev gcc-arm-linux-gnueabihf bc kmod \
+    build-essential git ncurses-dev gcc-arm-linux-gnueabihf bc kmod wget \
     bison flex python-all-dev dh-systemd default-jre-headless gnupg1 && \
-    apt-key adv --keyserver keyserver.ubuntu.com \
-                --recv-keys B7D6CDF547DA4ABD && \
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb http://apt.hoertech.de bionic universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \

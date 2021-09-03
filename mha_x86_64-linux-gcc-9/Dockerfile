@@ -5,11 +5,9 @@ RUN apt-get update && \
                        libjack-jackd2-dev liblo-dev octave-signal \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
-                       libfreenect-dev swig libboost-system-dev netcat \
+                       libfreenect-dev swig libboost-system-dev netcat wget \
                        dpkg-dev lsb-release arcanist php-xml gnupg1 cmake && \
-    apt-key adv --keyserver keyserver.ubuntu.com \
-                --recv-keys B7D6CDF547DA4ABD && \
-    true
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add -
 RUN echo 'deb [arch=amd64] http://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
     echo 'deb [arch=amd64] http://aptdev.hoertech.de focal universe' \

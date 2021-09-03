@@ -1,9 +1,8 @@
 FROM ubuntu:18.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install gnupg1 && \
-    apt-key adv --keyserver keyserver.ubuntu.com \
-                --recv-keys B7D6CDF547DA4ABD && \
+    apt-get -y install gnupg1 wget && \
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb http://apt.hoertech.de bionic universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
