@@ -1,5 +1,5 @@
 pipeline {
-   agent {label "jenkinsmaster"}
+   agent any
    stages {
       stage('parallel builds') {
          parallel {
