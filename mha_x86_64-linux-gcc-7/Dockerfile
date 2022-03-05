@@ -7,7 +7,7 @@ RUN apt-get update && \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat wget \
                        dpkg-dev lsb-release arcanist php-xml gnupg1 cmake && \
-    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
+    wget -qO- http://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb http://apt.hoertech.de bionic universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
