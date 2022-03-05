@@ -12,7 +12,5 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install mhamakedeb dpkg-dev lsb-release arcanist php-xml && \
-    git config --global user.email "noreply@mha.hoertech.de" && \
-    git config --global user.name "Jenkins" && \
     useradd -ms /bin/bash --uid=19453 u
 USER u

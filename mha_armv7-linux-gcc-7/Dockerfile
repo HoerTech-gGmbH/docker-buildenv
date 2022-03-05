@@ -16,8 +16,6 @@ RUN apt-get update && \
                        dpkg-dev lsb-release arcanist php-xml ccache cmake && \
     mkdir -p /etc/mha && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
-    git config --global user.email "noreply@mha.hoertech.de" && \
-    git config --global user.name "Jenkins" && \
     useradd -ms /bin/bash --uid=19453 u
 USER u
 
