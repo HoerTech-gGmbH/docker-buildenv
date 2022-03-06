@@ -31,11 +31,22 @@
 # Using ubuntu 18.04 as base image is somewhat arbitrary.  The docker
 # command line utility in this image must be able to talk to the
 # docker server on the host.  Update this when versions become
-# incompatible.
+# incompatible or the ubuntu version used here is no longer maintained.
 FROM ubuntu:18.04
 
 # Most of the image building executed in a single step for image efficiency.
 RUN \
+\
+# For ARM architectures, this docker image is built behind a sometimes
+# broken firewall which sometimes blocks http traffic.  This has
+# happened often enough to change apt installation to https.
+# Change ports.ubuntu.com to one of the few ubuntu-ports mirrors
+# offering https and tell apt to ignore the certificate because the
+# ca-certificates package is not yet installed.
+    sed -i -e "s,http://ports.ubuntu.com,https://mirrors.ocf.berkeley.edu,"    \
+        /etc/apt/sources.list                                               && \
+    echo 'Acquire::https::Verify-Peer "false";' >/etc/apt/apt.conf.d/no-ssl && \
+    echo 'Acquire::https::Verify-Host "false";'>>/etc/apt/apt.conf.d/no-ssl && \
 \
 # Create database of available ubuntu packages
  apt-get update && \
