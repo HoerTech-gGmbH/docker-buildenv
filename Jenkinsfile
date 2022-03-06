@@ -4,7 +4,7 @@ pipeline {
       stage('parallel builds') {
          parallel {
 
-            // update images docker_armv7 and mha_armv7-linux-gcc-7
+            // update images for docker_armv7 and liblsl_armv7 
             stage('armv7 docker liblsl') {
                agent {label "armv7 && dockerbld"}
                steps {
@@ -25,12 +25,16 @@ pipeline {
                         then sh/build_and_push liblsl_armv7-linux-gcc-7
                         fi"""
 
+                  sh """if sh/changed . liblsl_armv7-linux-gcc-10
+                        then sh/build_and_push liblsl_armv7-linux-gcc-10
+                        fi"""
+
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
             }
 
-            // update images liblsl_armv7-linux-gcc-7 and tascar_armv7-linux-gcc-7
+            // update images for mha_armv7 and tascar_armv7
             stage('armv7 mha tascar') {
                agent {label "armv7 && dockerbld"}
                steps {
@@ -50,7 +54,7 @@ pipeline {
                }
             }
 
-            // update image docker_aarch64, liblsl_aarch64-linux-gcc-7 and mha_aarch64-linux-gcc-7
+            // update image for docker_aarch64, liblsl_aarch64 and mha_aarch64
             stage('aarch64 docker liblsl mha') {
                agent {label "aarch64 && dockerbld"}
                steps {
@@ -68,6 +72,10 @@ pipeline {
 
                   sh """if sh/changed . liblsl_aarch64-linux-gcc-7
                         then sh/build_and_push liblsl_aarch64-linux-gcc-7
+                        fi"""
+
+                  sh """if sh/changed . liblsl_aarch64-linux-gcc-10
+                        then sh/build_and_push liblsl_aarch64-linux-gcc-10
                         fi"""
 
                   sh """if sh/changed . mha_aarch64-linux-gcc-7
@@ -154,6 +162,34 @@ pipeline {
                   sh """if sh/changed . tascar_x86_64-linux-gcc-9
                         then sh/build_and_push tascar_x86_64-linux-gcc-9
                         fi"""
+
+                  // We have just obsoleted docker images, save disk space
+                  sh "docker system prune -f || true"
+               }
+            }
+
+            // update all x86_64 images for jammy
+            stage("x86_64 jammy") {
+               agent {label "x86_64 && dockerbld"}
+               steps {
+                  checkout scm
+                  sh "git clean -fdx ."
+
+                  // sh """if sh/changed . octave_x86_64-linux-gcc-11
+                  //       then sh/build_and_push octave_x86_64-linux-gcc-11
+                  //       fi"""
+
+                  sh """if sh/changed . mha_x86_64-linux-gcc-11 mha_x86_64-linux-gcc-11-doc
+                        then sh/build_and_push mha_x86_64-linux-gcc-11 mha_x86_64-linux-gcc-11-doc
+                        fi"""
+
+                  // sh """if sh/changed . kernel_cross-gcc-11
+                  //       then sh/build_and_push kernel_cross-gcc-11
+                  //       fi"""
+
+                  // sh """if sh/changed . tascar_x86_64-linux-gcc-11
+                  //       then sh/build_and_push tascar_x86_64-linux-gcc-11
+                  //       fi"""
 
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
