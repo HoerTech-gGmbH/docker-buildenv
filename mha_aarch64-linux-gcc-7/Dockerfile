@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 # This docker image is built behind a sometimes broken firewall which
 # sometimes blocks http traffic.  This has happened often enough to
-# try changing apt installation to https.  Change ports.ubuntu.com to
+# change apt installation to https.  Change ports.ubuntu.com to
 # one of the few ubuntu-ports mirrors offering https and tell apt to
 # ignore the certificate because the ca-certificates package is not
 # yet installed.
