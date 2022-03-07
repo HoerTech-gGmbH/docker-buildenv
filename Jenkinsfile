@@ -179,6 +179,10 @@ pipeline {
                   //       then sh/build_and_push octave_x86_64-linux-gcc-11
                   //       fi"""
 
+                  sh """if sh/changed . liblsl_x86_64-linux-gcc-11
+                        then sh/build_and_push liblsl_x86_64-linux-gcc-11
+                        fi"""
+
                   sh """if sh/changed . mha_x86_64-linux-gcc-11 mha_x86_64-linux-gcc-11-doc
                         then sh/build_and_push mha_x86_64-linux-gcc-11 mha_x86_64-linux-gcc-11-doc
                         fi"""
