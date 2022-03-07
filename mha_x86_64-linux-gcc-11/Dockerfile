@@ -1,7 +1,7 @@
 # Create docker image with MHA build environment for Ubuntu 22.04
 FROM ubuntu:22.04
 
-# Install build dependencies from standard ubuntu apt repository.
+# Install build dependencies from standard Ubuntu apt repository.
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
@@ -14,7 +14,7 @@ RUN apt-get update && \
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add -
 
 # Add main hoertech apt repository to the package manager of this image
-RUN echo 'deb [arch=amd64] https://apt.hoertech.de focal universe' \
+RUN echo 'deb [arch=amd64] https://apt.hoertech.de jammy universe' \
           >>/etc/apt/sources.list && \
 # Install non-standard build dependencies from our apt repository.
     apt-get update && \
