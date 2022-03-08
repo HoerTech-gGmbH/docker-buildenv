@@ -49,6 +49,10 @@ pipeline {
                         then sh/build_and_push mha_armv7-linux-gcc-7
                         fi"""
 
+                  sh """if sh/changed . tascar_armv7-linux-gcc-10
+                        then sh/build_and_push tascar_armv7-linux-gcc-10
+                        fi"""
+
                   sh """if sh/changed . tascar_armv7-linux-gcc-7
                         then sh/build_and_push tascar_armv7-linux-gcc-7
                         fi"""
@@ -211,9 +215,9 @@ pipeline {
                   //       then sh/build_and_push kernel_cross-gcc-11
                   //       fi"""
 
-                  // sh """if sh/changed . tascar_x86_64-linux-gcc-11
-                  //       then sh/build_and_push tascar_x86_64-linux-gcc-11
-                  //       fi"""
+                  sh """if sh/changed . tascar_x86_64-linux-gcc-11
+                        then sh/build_and_push tascar_x86_64-linux-gcc-11
+                        fi"""
 
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
