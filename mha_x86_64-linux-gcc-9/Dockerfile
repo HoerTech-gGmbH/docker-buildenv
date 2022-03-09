@@ -11,10 +11,10 @@ RUN apt-get update && \
                        libfreenect-dev swig libboost-system-dev netcat wget \
                        dpkg-dev lsb-release arcanist php-xml gnupg1 cmake && \
 # Retrieve the signing key for the hoertech apt repositories
-    wget -qO- http://apt.hoertech.de/openmha-packaging.pub | apt-key add -
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add -
 
 # Add main hoertech apt repository to the package manager of this image
-RUN echo 'deb [arch=amd64] http://apt.hoertech.de focal universe' \
+RUN echo 'deb [arch=amd64] https://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
 # Install non-standard build dependencies from our apt repository.
     apt-get update && \

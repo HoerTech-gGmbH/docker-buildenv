@@ -17,8 +17,8 @@ RUN apt-get update && \
                        gnupg1 libgsl-dev libsamplerate0-dev libcpprest-dev \
                        nlohmann-json3-dev libsoundio-dev libxerces-c-dev \
 		       cmake && \
-    wget -qO- http://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
-    echo 'deb http://apt.hoertech.de focal universe' \
+    wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
+    echo 'deb https://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
