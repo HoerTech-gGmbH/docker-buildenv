@@ -1,5 +1,5 @@
 FROM debian:11
-# This docker image is built behind a sometimes broken firewall which
+# This docker image is built behind a sometimes misbehaving firewall which
 # sometimes blocks http traffic.  This has happened often enough to
 # change apt installation to https.  Tell apt to ignore the certificate
 # because the ca-certificates package is not yet installed.
