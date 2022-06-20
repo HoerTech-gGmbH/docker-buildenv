@@ -64,7 +64,14 @@ pipeline {
 
             // update image for docker_aarch64, liblsl_aarch64 and mha_aarch64
             stage('aarch64 docker liblsl') {
-               agent {label "aarch64 && dockerbld"}
+               agent {
+                   docker {
+                       image "hoertech/docker-buildenv:docker_aarch64"
+                       label "dockerARM64"
+                       alwaysPull true
+                       args "-v /home/u:/home/u --hostname docker"
+                   }
+               }
                steps {
                   checkout scm
                   sh "git clean -fdx ."
