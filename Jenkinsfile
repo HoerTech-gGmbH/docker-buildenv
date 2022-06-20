@@ -69,7 +69,9 @@ pipeline {
                        image "hoertech/docker-buildenv:docker_aarch64"
                        label "dockerARM64"
                        alwaysPull true
-                       args "-v /home/u:/home/u --hostname docker"
+                       args """-v /home/u:/home/u
+                               -v /var/run/docker.sock:/var/run/docker.sock
+                               --hostname docker"""
                    }
                }
                steps {
@@ -101,6 +103,9 @@ pipeline {
                             fi"""
 
                   }
+                  // remove dangling link
+                  sh "rm -f ~/.docker/config.json"
+
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
