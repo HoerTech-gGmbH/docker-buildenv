@@ -81,18 +81,26 @@ pipeline {
                   // aarch64.
                   sh "ln -s docker/ docker_aarch64"
 
-                  sh """if sh/changed . docker
-                        then sh/build_and_push docker_aarch64
-                        fi"""
+                  // Use dockerhub auth token with ensured deletion after usage
+                  sh "mkdir -p ~/.docker"
+                  sh "rm -f ~/.docker/config.json"
+                  withCredentials([file(credentialsId: 'dockerhub_hoertech',
+                                        variable: 'config_json')]) {
+                      sh "ln -s $config_json ~/.docker/config.json"
 
-                  sh """if sh/changed . liblsl_aarch64-linux-gcc-7
-                        then sh/build_and_push liblsl_aarch64-linux-gcc-7
-                        fi"""
+                      sh """if sh/changed . docker
+                            then sh/build_and_push docker_aarch64
+                            fi"""
 
-                  sh """if sh/changed . liblsl_aarch64-linux-gcc-10
-                        then sh/build_and_push liblsl_aarch64-linux-gcc-10
-                        fi"""
+                      sh """if sh/changed . liblsl_aarch64-linux-gcc-7
+                            then sh/build_and_push liblsl_aarch64-linux-gcc-7
+                            fi"""
 
+                      sh """if sh/changed . liblsl_aarch64-linux-gcc-10
+                            then sh/build_and_push liblsl_aarch64-linux-gcc-10
+                            fi"""
+
+                  }
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
                }
