@@ -64,16 +64,7 @@ pipeline {
 
             // update image for docker_aarch64, liblsl_aarch64 and mha_aarch64
             stage('aarch64 docker liblsl') {
-               agent {
-                   docker {
-                       image "hoertech/docker-buildenv:docker_aarch64"
-                       label "dockerARM64"
-                       alwaysPull true
-                       args """-v /home/u:/home/u
-                               -v /var/run/docker.sock:/var/run/docker.sock
-                               --hostname docker"""
-                   }
-               }
+               agent {label "dockerARM64"}
                steps {
                   checkout scm
                   sh "git clean -fdx ."
@@ -88,7 +79,7 @@ pipeline {
                   sh "rm -f ~/.docker/config.json"
                   withCredentials([file(credentialsId: 'dockerhub_hoertech',
                                         variable: 'config_json')]) {
-                      sh "ln -s $config_json ~/.docker/config.json"
+                      sh 'ln -s $config_json ~/.docker/config.json'
 
                       sh """if sh/changed . docker
                             then sh/build_and_push docker_aarch64
