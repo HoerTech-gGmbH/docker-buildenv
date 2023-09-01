@@ -103,7 +103,7 @@ pipeline {
             }
 
             // update image for docker_aarch64, liblsl_aarch64 and mha_aarch64
-            stage('aarch64 mha') {
+            stage('aarch64 mha tascar') {
                agent {label "aarch64 && dockerbld"}
                steps {
                   checkout scm
@@ -115,6 +115,10 @@ pipeline {
 
                   sh """if sh/changed . mha_aarch64-linux-gcc-7
                         then sh/build_and_push mha_aarch64-linux-gcc-7
+                        fi"""
+
+                  sh """if sh/changed . tascar_aarch64-linux-gcc-10
+                        then sh/build_and_push tascar_aarch64-linux-gcc-10
                         fi"""
 
                   // We have just obsoleted docker images, save disk space
