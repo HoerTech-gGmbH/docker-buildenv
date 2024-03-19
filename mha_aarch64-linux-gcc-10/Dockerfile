@@ -11,7 +11,7 @@ RUN sed -i -e "s/http:/https:/" /etc/apt/sources.list                       && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
-                       libjack-jackd2-dev liblo-dev octave-signal \
+                       libjack-jackd2-dev liblo-dev octave-signal libtorch-dev \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat wget \

@@ -9,28 +9,28 @@ pipeline {
                agent {label "armv7 && dockerbld"}
                steps {
                   checkout scm
-                  sh "git clean -fdx ."
+                  //sh "git clean -fdx ."
 
                   // Dockerfile in directory docker can be used to build docker
                   // images for armv7, aarch64, or x86_64.  Here we use it for
                   // armv7.
-                  sh "ln -s docker/ docker_armv7"
+                  //sh "ln -s docker/ docker_armv7"
 
                   // """ starts a multi-line string, newlines are passed to sh
-                  sh """if sh/changed . docker
-                        then sh/build_and_push docker_armv7
-                        fi"""
+                  //sh """if sh/changed . docker
+                  //      then sh/build_and_push docker_armv7
+                  //      fi"""
 
-                  sh """if sh/changed . liblsl_armv7-linux-gcc-7
-                        then sh/build_and_push liblsl_armv7-linux-gcc-7
-                        fi"""
+                  //sh """if sh/changed . liblsl_armv7-linux-gcc-7
+                  //      then sh/build_and_push liblsl_armv7-linux-gcc-7
+                  //      fi"""
 
-                  sh """if sh/changed . liblsl_armv7-linux-gcc-10
-                        then sh/build_and_push liblsl_armv7-linux-gcc-10
-                        fi"""
+                  //sh """if sh/changed . liblsl_armv7-linux-gcc-10
+                  //      then sh/build_and_push liblsl_armv7-linux-gcc-10
+                  //      fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
+                  //sh "docker system prune -f || true"
                }
             }
 
@@ -152,30 +152,18 @@ pipeline {
                agent {label "x86_64 && dockerbld"}
                steps {
                   checkout scm
-                  sh "git clean -fdx ."
+                  //sh "git clean -fdx ."
 
-                  sh """if sh/changed . octave_x86_64-linux-gcc-7
-                        then sh/build_and_push octave_x86_64-linux-gcc-7
-                        fi"""
+                  //sh """if sh/changed . tascar_x86_64-linux-gcc-7
+                  //      then sh/build_and_push tascar_x86_64-linux-gcc-7
+                  //      fi"""
 
-                  sh """if sh/changed . liblsl_x86_64-linux-gcc-7
-                        then sh/build_and_push liblsl_x86_64-linux-gcc-7
-                        fi"""
-
-                  sh """if sh/changed . mha_x86_64-linux-gcc-7
-                        then sh/build_and_push mha_x86_64-linux-gcc-7
-                        fi"""
-
-                  sh """if sh/changed . tascar_x86_64-linux-gcc-7
-                        then sh/build_and_push tascar_x86_64-linux-gcc-7
-                        fi"""
-
-                  sh """if sh/changed . aptly
-                        then sh/build_and_push aptly
-                        fi"""
+                  //sh """if sh/changed . aptly
+                  //      then sh/build_and_push aptly
+                  //      fi"""
 
                   // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
+                  //sh "docker system prune -f || true"
                }
             }
 
@@ -226,13 +214,37 @@ pipeline {
                         then sh/build_and_push liblsl_x86_64-linux-gcc-11
                         fi"""
 
-                  // sh """if sh/changed . kernel_cross-gcc-11
-                  //       then sh/build_and_push kernel_cross-gcc-11
-                  //       fi"""
-
                   sh """if sh/changed . tascar_x86_64-linux-gcc-11
                         then sh/build_and_push tascar_x86_64-linux-gcc-11
                         fi"""
+
+                  // We have just obsoleted docker images, save disk space
+                  sh "docker system prune -f || true"
+               }
+            }
+
+            // update all x86_64 images for noble
+            stage("x86_64 noble") {
+               agent {label "x86_64 && dockerbld"}
+               steps {
+                  checkout scm
+                  sh "git clean -fdx ."
+
+                  sh """if sh/changed . octave_x86_64-linux-gcc-13
+                        then sh/build_and_push octave_x86_64-linux-gcc-13
+                        fi"""
+
+                  sh """if sh/changed . mha_x86_64-linux-gcc-13 mha_x86_64-linux-gcc-13-doc
+                        then sh/build_and_push mha_x86_64-linux-gcc-13 mha_x86_64-linux-gcc-13-doc
+                        fi"""
+
+                  sh """if sh/changed . liblsl_x86_64-linux-gcc-13
+                        then sh/build_and_push liblsl_x86_64-linux-gcc-13
+                        fi"""
+
+                  //sh """if sh/changed . tascar_x86_64-linux-gcc-13
+                  //      then sh/build_and_push tascar_x86_64-linux-gcc-13
+                  //      fi"""
 
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
