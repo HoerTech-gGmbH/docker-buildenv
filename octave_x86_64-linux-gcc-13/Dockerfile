@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install git swig liboctave-dev wget gnupg1 lsb-release && \
+    apt-get -y install git swig octave-dev wget gnupg1 lsb-release && \
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb https://apt.hoertech.de noble universe' \
           >>/etc/apt/sources.list && \
