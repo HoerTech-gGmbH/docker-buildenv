@@ -1,4 +1,4 @@
-# Create docker image with MHA build environment for Ubuntu 22.04
+# Create docker image with MHA build environment for Ubuntu 24.04
 FROM ubuntu:24.04
 
 # Install build dependencies from standard Ubuntu apt repository.
