@@ -9,7 +9,7 @@ RUN pipx install torch --index-url \
         https://download.pytorch.org/whl/cpu
 # Extract libtorch from the python package, copy to separate directory
 RUN mkdir -p /libtorch/lib /libtorch/include
-RUN find / -name libtorch_cpu.so
+
 RUN cp -r /root/.local/share/pipx/venvs/torch/lib/*/*/torch/include/torch \
         /libtorch/include
 # rename libraries while copying them to avoid conflicts on user systems
