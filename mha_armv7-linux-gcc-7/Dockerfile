@@ -23,7 +23,7 @@ RUN sed -i -e "s,http://ports.ubuntu.com,https://mirrors.ocf.berkeley.edu,"    \
                        libjack-jackd2-dev octave-signal liblo-dev default-jre-headless \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
-                       libfreenect-dev swig libboost-system-dev netcat libtorch3-dev \
+                       libfreenect-dev swig libboost-system-dev netcat \
                        dpkg-dev lsb-release arcanist php-xml ccache cmake && \
     mkdir -p /etc/mha && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
