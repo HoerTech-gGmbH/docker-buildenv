@@ -1,3 +1,33 @@
+# Build stage for retrieving current libtorch
+FROM ubuntu:22.04 as libtorch
+# install pipx first to install torch with it
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
+        apt-get -y install pipx
+# Install torch
+RUN pipx install torch --index-url \
+        https://download.pytorch.org/whl/cpu
+# Extract libtorch from the python package, copy to separate directory
+RUN mkdir -p /libtorch/lib
+RUN cp -r /root/.local/pipx/venvs/torch/lib/*/*/torch/include /libtorch
+# rename libraries while copying them to avoid conflicts on user systems
+RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libtorch_cpu.so \
+        /libtorch/lib/libtorch_cpu_openMHA.so
+RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libc10.so \
+        /libtorch/lib/libc10_openMHA.so
+# do not rename libgomp which is needed by libtorch and already named uniquely
+RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libgomp*so* \
+        /libtorch/lib/
+# Also change the soname of the renamed libraries.
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install patchelf && \
+    patchelf --set-soname libtorch_cpu_openMHA.so \
+        /libtorch/lib/libtorch_cpu_openMHA.so && \
+    patchelf --set-soname libc10_openMHA.so \
+        /libtorch/lib/libc10_openMHA.so && \
+    patchelf --replace-needed libc10.so libc10_openMHA.so \
+        /libtorch/lib/libtorch_cpu_openMHA.so
+
+
 # Create docker image with MHA build environment for Ubuntu 22.04
 FROM ubuntu:22.04
 
@@ -5,11 +35,12 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
-                       libjack-jackd2-dev liblo-dev octave-signal libtorch-dev \
+                       libjack-jackd2-dev liblo-dev octave-signal \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat wget \
                        dpkg-dev lsb-release arcanist php-xml gnupg1 cmake && \
+\
 # Retrieve the signing key for the hoertech apt repositories
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
 \
@@ -24,4 +55,15 @@ RUN apt-get update && \
     apt-get -y purge autoconf automake autotools-dev libtool && \
 # Create non-root user who should execute the build.
     useradd -ms /bin/bash --uid=19453 u
+
+# Copy libtorch libraries and headers from libtorch stage.
+COPY --from=libtorch /libtorch/include /usr/local/include
+COPY --from=libtorch /libtorch/lib /usr/local/lib
+
+# Run ldconfig to update the library cache,
+RUN ldconfig && \
+# but remove the symbolic links created by ldconfig, since we want to detect
+# that we are linking against special _openMHA installed library versions.
+    find /usr/local/lib -type l -delete
+
 USER u
