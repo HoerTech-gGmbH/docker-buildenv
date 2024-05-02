@@ -1,33 +1,3 @@
-# Build stage for retrieving current libtorch
-FROM ubuntu:22.04 as libtorch
-# install pipx first to install torch with it
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
-        apt-get -y install pipx
-# Install torch
-RUN pipx install torch --index-url \
-        https://download.pytorch.org/whl/cpu
-# Extract libtorch from the python package, copy to separate directory
-RUN mkdir -p /libtorch/lib
-RUN cp -r /root/.local/pipx/venvs/torch/lib/*/*/torch/include /libtorch
-# rename libraries while copying them to avoid conflicts on user systems
-RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libtorch_cpu.so \
-        /libtorch/lib/libtorch_cpu_openMHA.so
-RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libc10.so \
-        /libtorch/lib/libc10_openMHA.so
-# do not rename libgomp which is needed by libtorch and already named uniquely
-RUN cp /root/.local/pipx/venvs/torch/lib/*/*/torch/lib/libgomp*so* \
-        /libtorch/lib/
-# Also change the soname of the renamed libraries.
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install patchelf && \
-    patchelf --set-soname libtorch_cpu_openMHA.so \
-        /libtorch/lib/libtorch_cpu_openMHA.so && \
-    patchelf --set-soname libc10_openMHA.so \
-        /libtorch/lib/libc10_openMHA.so && \
-    patchelf --replace-needed libc10.so libc10_openMHA.so \
-        /libtorch/lib/libtorch_cpu_openMHA.so
-
-
 # Create docker image with MHA build environment for Ubuntu 22.04
 FROM ubuntu:22.04
 
@@ -35,7 +5,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make libsndfile1-dev jackd2 portaudio19-dev \
-                       libjack-jackd2-dev liblo-dev octave-signal \
+                       libjack-jackd2-dev liblo-dev octave-signal patchelf \
                        zip libx11-dev x11proto-video-dev libxv-dev libeigen3-dev \
                        libcwiid-dev ruby-dev libboost-dev libgtkmm-3.0-dev \
                        libfreenect-dev swig libboost-system-dev netcat wget \
@@ -54,16 +24,39 @@ RUN apt-get update && \
 # Remove GNU autotools, they may get in the way when compiling FFTW
     apt-get -y purge autoconf automake autotools-dev libtool && \
 # Create non-root user who should execute the build.
-    useradd -ms /bin/bash --uid=19453 u
-
-# Copy libtorch libraries and headers from libtorch stage.
-COPY --from=libtorch /libtorch/include /usr/local/include
-COPY --from=libtorch /libtorch/lib /usr/local/lib
-
-# Run ldconfig to update the library cache,
-RUN ldconfig && \
-# but remove the symbolic links created by ldconfig, since we want to detect
-# that we are linking against special _openMHA installed library versions.
-    find /usr/local/lib -type l -delete
+    useradd -ms /bin/bash --uid=19453 u && \
+\
+# Download libtorch libraries directly from pytorch download page.
+    libtorchzip="libtorch-cxx11-abi-shared-with-deps-2.3.0%2Bcpu.zip" && \
+    wget "https://download.pytorch.org/libtorch/cpu/$libtorchzip" && \
+# Check the sha512 checksum of the downloaded file, then unpack.
+    chk_a=0d6fb6a58874f0a3099def817a080e6af4afa19adaf6f54c36ffbb3e9f99abd6 && \
+    chk_b=2983bca8f74c28e5064444bfba950d3c135d9708282c88d3f70228b4f4c0fe7c && \
+    echo "$chk_a$chk_b" libtorch*.zip | sha512sum -c && \
+    unzip libtorch*.zip && \
+    rm -f libtorch*.zip && \
+\
+# Copy libtorch headers.
+    cp -r libtorch/include /usr/local && \
+# Rename libraries while copying them to avoid conflicts on user systems.
+    cp libtorch/lib/libtorch_cpu.so /usr/local/lib/libtorch_cpu_openMHA.so && \
+    cp libtorch/lib/libc10.so       /usr/local/lib/libc10_openMHA.so && \
+    cp libtorch/lib/libgomp-98b21ff3.so.1 /usr/local/lib/libgomp_openMHA.so &&\
+    rm -rf libtorch && \
+\
+# Also change the soname of the renamed libraries.
+    patchelf --set-soname libtorch_cpu_openMHA.so \
+        /usr/local/lib/libtorch_cpu_openMHA.so && \
+    patchelf --set-soname libc10_openMHA.so \
+        /usr/local/lib/libc10_openMHA.so && \
+    patchelf --set-soname libgomp_openMHA.so \
+        /usr/local/lib/libgomp_openMHA.so && \
+    patchelf --replace-needed libc10.so libc10_openMHA.so \
+        /usr/local/lib/libtorch_cpu_openMHA.so && \
+    patchelf --replace-needed libgomp-98b21ff3.so.1 libgomp_openMHA.so \
+        /usr/local/lib/libtorch_cpu_openMHA.so && \
+\
+# Update the library cache.
+    ldconfig 
 
 USER u
