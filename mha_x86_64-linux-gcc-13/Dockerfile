@@ -57,6 +57,6 @@ RUN wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
         /usr/local/lib/libtorch_cpu_openMHA.so && \
 \
 # Update the library cache.
-    ldconfig 
+    ldconfig
 
 USER u

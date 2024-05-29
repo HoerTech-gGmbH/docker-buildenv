@@ -61,6 +61,6 @@ RUN echo 'deb [arch=amd64] https://apt.hoertech.de focal universe' \
         /usr/local/lib/libtorch_cpu_openMHA.so && \
 \
 # Update the library cache.
-    ldconfig 
+    ldconfig
 
 USER u

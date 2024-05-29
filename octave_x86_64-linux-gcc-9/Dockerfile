@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git swig liboctave-dev wget gnupg1 lsb-release && \

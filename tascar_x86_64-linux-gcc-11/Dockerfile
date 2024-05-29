@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-# Install build dependencies from standard Debian apt repository.
+# Install build dependencies from standard Ubuntu apt repository.
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get -y install git g++ make build-essential libsndfile1-dev \

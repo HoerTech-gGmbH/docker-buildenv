@@ -1,6 +1,5 @@
 # Builds an x86_64 image with a cross compiler to armv7 with enough dependencies
 # to cross-compile a kernel for armv7 and package it in a debian package.
-
 FROM ubuntu:20.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \

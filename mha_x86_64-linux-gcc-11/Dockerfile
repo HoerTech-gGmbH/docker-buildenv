@@ -57,6 +57,6 @@ RUN apt-get update && \
         /usr/local/lib/libtorch_cpu_openMHA.so && \
 \
 # Update the library cache.
-    ldconfig 
+    ldconfig
 
 USER u
