@@ -242,9 +242,9 @@ pipeline {
                         then sh/build_and_push liblsl_x86_64-linux-gcc-13
                         fi"""
 
-                  //sh """if sh/changed . tascar_x86_64-linux-gcc-13
-                  //      then sh/build_and_push tascar_x86_64-linux-gcc-13
-                  //      fi"""
+                  sh """if sh/changed . tascar_x86_64-linux-gcc-13
+                        then sh/build_and_push tascar_x86_64-linux-gcc-13
+                        fi"""
 
                   // We have just obsoleted docker images, save disk space
                   sh "docker system prune -f || true"
