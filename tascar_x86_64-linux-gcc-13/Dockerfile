@@ -18,7 +18,7 @@ RUN apt-get update && \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        gnupg1 libgsl-dev libsamplerate0-dev \
                        nlohmann-json3-dev libsoundio-dev libxerces-c-dev \
-                       cmake && \
+                       cmake
 
 # Retrieve the signing key for the hoertech apt repositories
 RUN wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
@@ -29,8 +29,9 @@ RUN wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
 # Install non-standard build dependencies from our apt repository.
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install liblsl mhamakedeb && \
+    apt-get -y install liblsl mhamakedeb
+
 # Create non-root user who should execute the build.
-    useradd -ms /bin/bash --uid=19453 u && \
+RUN    useradd -ms /bin/bash --uid=19453 u && \
 
 USER u
