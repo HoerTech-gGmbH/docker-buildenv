@@ -32,6 +32,6 @@ RUN wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     apt-get -y install liblsl mhamakedeb
 
 # Create non-root user who should execute the build.
-RUN    useradd -ms /bin/bash --uid=19453 u && \
+RUN    useradd -ms /bin/bash --uid=19453 u
 
 USER u
