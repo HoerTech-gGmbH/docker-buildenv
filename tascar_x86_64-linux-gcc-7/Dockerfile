@@ -15,7 +15,7 @@ RUN apt-get update && \
                        texlive-font-utils graphviz texlive-fonts-recommended \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        gnupg1 libgsl-dev libsamplerate0-dev libcpprest-dev \
-                       nlohmann-json-dev libsoundio-dev libxerces-c-dev \
+                       nlohmann-json-dev libsoundio-dev libxerces-c-dev libcunit1-dev \
 		       cmake && \
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb https://apt.hoertech.de bionic universe' \
