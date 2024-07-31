@@ -141,9 +141,6 @@ pipeline {
                   sh """if sh/changed . docker
                         then sh/build_and_push docker_x86_64
                         fi"""
-
-                  // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
                }
             }
 
@@ -161,9 +158,6 @@ pipeline {
                   //sh """if sh/changed . aptly
                   //      then sh/build_and_push aptly
                   //      fi"""
-
-                  // We have just obsoleted docker images, save disk space
-                  //sh "docker system prune -f || true"
                }
             }
 
@@ -189,9 +183,6 @@ pipeline {
                   sh """if sh/changed . tascar_x86_64-linux-gcc-9
                         then sh/build_and_push tascar_x86_64-linux-gcc-9
                         fi"""
-
-                  // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
                }
             }
 
@@ -217,9 +208,6 @@ pipeline {
                   sh """if sh/changed . tascar_x86_64-linux-gcc-11
                         then sh/build_and_push tascar_x86_64-linux-gcc-11
                         fi"""
-
-                  // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
                }
             }
 
@@ -245,11 +233,15 @@ pipeline {
                   sh """if sh/changed . tascar_x86_64-linux-gcc-13
                         then sh/build_and_push tascar_x86_64-linux-gcc-13
                         fi"""
-
-                  // We have just obsoleted docker images, save disk space
-                  sh "docker system prune -f || true"
                }
             }
+         }
+      }
+      stage('cleanup x86_64') {
+         agent {label "x86_64 && dockerbld"}
+         steps {
+            // We have just obsoleted docker images, save disk space
+            sh "docker system prune -f || true"
          }
       }
    }
