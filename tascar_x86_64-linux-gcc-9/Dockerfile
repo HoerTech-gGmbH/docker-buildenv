@@ -16,7 +16,7 @@ RUN apt-get update && \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        gnupg1 libgsl-dev libsamplerate0-dev libcpprest-dev \
                        nlohmann-json3-dev libsoundio-dev libxerces-c-dev \
-                       cmake libcunit1-dev && \
+                       cmake libcunit1-dev libsodium-dev && \
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
     echo 'deb https://apt.hoertech.de focal universe' \
           >>/etc/apt/sources.list && \

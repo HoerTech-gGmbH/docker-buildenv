@@ -17,7 +17,7 @@ RUN apt-get update && \
                        libopencv-dev rsync libboost-all-dev libeigen3-dev \
                        gnupg1 libgsl-dev libsamplerate0-dev \
                        nlohmann-json3-dev libsoundio-dev libxerces-c-dev libcunit1-dev \
-                       cmake && \
+                       cmake libsodium-dev && \
 \
 # Retrieve the signing key for the hoertech apt repositories
     wget -qO- https://apt.hoertech.de/openmha-packaging.pub | apt-key add - && \
